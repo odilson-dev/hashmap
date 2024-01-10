@@ -33,6 +33,10 @@ class HashMap
         @buckets[key]
     end
 
+    def key?(key)
+        key.positive? and key < capacity ? true : false
+    end
+
     
 end
 
