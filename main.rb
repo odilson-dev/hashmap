@@ -29,6 +29,10 @@ class HashMap
         @buckets.count { |x| !x.nil? }
     end
 
+    def get(key)
+        @buckets[key]
+    end
+
     
 end
 
