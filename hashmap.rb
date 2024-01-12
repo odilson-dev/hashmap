@@ -25,7 +25,7 @@ class HashMap
         @buckets.length
     end
 
-    # returns the number of stored keys in the hash map.
+    # returns the number of stored keys in the hash map
     def length
         count = 0
         @buckets.each do |x|
@@ -85,9 +85,19 @@ class HashMap
         end
     end
 
-    # #clear removes all the elements from the hashmap
+    # #clear all the elements from the hashmap
     def clear
-        @buckets.clear
+        @buckets =  Array.new(16) { LinkedList.new }
+    end
+
+    def remove(key)
+        index = hash(key) % 16
+        # If the bucket is not empty
+        if @buckets[index].head.nil?
+            puts "This key doesn't exist"
+        else
+            @buckets[index].remove(key)
+        end
     end
 
     #keys returns an array containing all the keys inside the hash map
