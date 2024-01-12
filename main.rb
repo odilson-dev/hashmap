@@ -29,7 +29,7 @@ class HashMap
         @buckets.count { |x| !x.head.nil? }
     end
 
-    # To retrieve the value using a key, this method hash the key, and calculate bucket's key number(index)
+    #get takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil. To retrieve the value using a key, it hashes the key, and calculate the bucket's key number(index). 
     def get(key)
         
         index = hash(key) % 16
@@ -46,10 +46,12 @@ class HashMap
         end
     end
 
+    #key? takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
     def key?(key)
         key.positive? and key < capacity ? true : false
     end
 
+    # #clear removes all the elements from the hashmap
     def clear
         @buckets.clear
     end
