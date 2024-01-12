@@ -27,7 +27,18 @@ class HashMap
 
     # returns the number of stored keys in the hash map.
     def length
-        @buckets.count { |x| !x.head.nil? }
+        count = 0
+        @buckets.each do |x|
+            current_node = x.head
+            if !current_node.nil?
+                count += 1
+                while current_node.next_node
+                    count += 1
+                    current_node = current_node.next_node
+                end
+            end
+        end
+        count
     end
 
     #get takes one argument as a key and returns the value that is assigned to this key. If key is not found, return nil. To retrieve the value using a key, it hashes the key, and calculate the bucket's key number(index). 
@@ -53,7 +64,7 @@ class HashMap
         end
     end
 
-    #key? takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
+    #key? takes a key as an argument and returns true or false based on whether or not the key is in the hash map
     def key?(key)
         index = hash(key) % 16
         # If the bucket is not empty
