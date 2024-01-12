@@ -83,6 +83,19 @@ class HashMap
             end
         end
     end
+    # entries returns an array that contains each key, value pair. Example: [[first_key, first_value], [second_key, second_value]]
+    def entries
+        all_entries = []
+        @buckets.each do |elem| 
+            if !elem.head.nil?
+                all_entries << [elem.key, elem.data]
+                while elem.new_node
+                    all_entries << [elem.key, elem.data]
+                    elem = elem.new_node
+                end
+            end
+        end
+    end
 end
 
 
