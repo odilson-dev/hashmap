@@ -18,6 +18,12 @@ The `HashMap` class is the core component of this repository, showcasing a power
 
 The `Node` class defines the structure of a node in the linked list. Each node encapsulates a key, data, and a reference to the next node. This class is an integral part of the linked list and contributes to the overall functionality of the hash map.
 
+## Features
+- Collision Handling: Utilizes a linked list to manage collisions efficiently.
+- Dynamic Sizing: The number of buckets in the hash map is customizable for optimization.
+- Key-Value Operations: Provides methods for setting, getting, and checking the existence of key-value pairs.
+- Clearing Elements: Clears all elements from the hash map.
+
 ## Usage Example
 
 ```ruby
@@ -38,4 +44,30 @@ puts "City: #{my_hash_map.get("city")}"
 puts "All Keys: #{my_hash_map.keys}"
 puts "All Values: #{my_hash_map.values}"
 puts "All Entries: #{my_hash_map.entries}"
+
+# Returns true or false based on whether or not the key is in the hash map
+puts my_hash_map.key?("name") #true
+puts my_hash_map.key?("age") #true
+puts my_hash_map.key?("city") #true
+
+puts my_hash_map.key?("hello") #false
+
+# returns the number of stored keys in the hash map
+puts my_hash_map.length # 3
+
+my_hash_map.remove("name")
+puts my_hash_map.length # 2
+puts my_hash_map.get("name") # nil
+puts my_hash_map.key?("name") # false
+
+p my_hash_map.keys ["age", "city"]
+
+
+# removes all entries in the hash map.
+my_hash_map.clear
+
+puts my_hash_map.length # 0
+puts my_hash_map.keys # []
+
+
 ```
