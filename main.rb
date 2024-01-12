@@ -70,6 +70,19 @@ class HashMap
         end
     end
     
+    # values returns an array containing all the values.
+    def values
+        all_values = []
+        @buckets.each do |elem| 
+            if !elem.head.nil?
+                all_values << elem.data
+                while elem.new_node
+                    all_values << elem.data
+                    elem = elem.new_node
+                end
+            end
+        end
+    end
 end
 
 
