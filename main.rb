@@ -56,6 +56,19 @@ class HashMap
         @buckets.clear
     end
 
+    #keys returns an array containing all the keys inside the hash map
+    def keys
+        all_keys = []
+        @buckets.each do |elem| 
+            if !elem.head.nil?
+                all_keys << elem.key
+                while elem.new_node
+                    all_keys << elem.key
+                    elem = elem.new_node
+                end
+            end
+        end
+    end
     
 end
 
