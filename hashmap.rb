@@ -1,8 +1,9 @@
 require_relative "linked_list"
 
 class HashMap
+    attr_accessor :buckets
     def initialize
-        @buckets =  Array.new(LinkedList.new, 16)
+        @buckets =  Array.new(16) { LinkedList.new }
     end
 
 
@@ -38,10 +39,16 @@ class HashMap
             return nil
         else
             node =  @buckets[index].head
-            if node.key == key
-                return node.data
-            else
-                return nil
+            while true
+                if node.key == key
+                    return node.data
+                elsif node.next_node
+                    node = node.next_node
+                    next
+                else
+                    node.next_node
+                    break
+                end
             end
         end
     end
@@ -59,15 +66,16 @@ class HashMap
     #keys returns an array containing all the keys inside the hash map
     def keys
         all_keys = []
-        @buckets.each do |elem| 
+        @buckets.each do |elem|
             if !elem.head.nil?
-                all_keys << elem.key
-                while elem.new_node
-                    all_keys << elem.key
-                    elem = elem.new_node
+                current_node = elem.head
+                while current_node
+                    all_keys << current_node.key
+                    current_node = current_node.next_node
                 end
             end
         end
+        all_keys
     end
     
     # values returns an array containing all the values.
@@ -75,25 +83,27 @@ class HashMap
         all_values = []
         @buckets.each do |elem| 
             if !elem.head.nil?
-                all_values << elem.data
-                while elem.new_node
-                    all_values << elem.data
-                    elem = elem.new_node
+                current_node = elem.head
+                while current_node
+                    all_values << current_node.data
+                    current_node = current_node.next_node
                 end
             end
         end
+        all_values
     end
     # entries returns an array that contains each key, value pair. Example: [[first_key, first_value], [second_key, second_value]]
     def entries
         all_entries = []
         @buckets.each do |elem| 
             if !elem.head.nil?
-                all_entries << [elem.key, elem.data]
-                while elem.new_node
-                    all_entries << [elem.key, elem.data]
-                    elem = elem.new_node
+                current_node = elem.head
+                while current_node
+                    all_entries << [current_node.key, current_node.data]
+                    current_node = current_node.next_node
                 end
             end
         end
+        all_entries
     end
 end
