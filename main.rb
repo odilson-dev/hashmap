@@ -1,8 +1,8 @@
-require_relative "node"
+require_relative "linked_list"
 
 class HashMap
     def initialize
-        @buckets =  Array.new(16)
+        @buckets =  Array.new(LinkedList.new, 16)
     end
 
 
@@ -17,24 +17,41 @@ class HashMap
 
     def set(key, value)
         index = hash(key) % 16
-        @buckets[index] = Node.new(key, value)
+        @buckets[index].append(key, value)
     end
 
     def capacity
         @buckets.length
     end
 
-    # return the amount of buckets that is not nil
-    def amount_buckets_filled
-        @buckets.count { |x| !x.nil? }
+    # returns the number of stored keys in the hash map.
+    def length
+        @buckets.count { |x| !x.head.nil? }
     end
 
+    # To retrieve the value using a key, this method hash the key, and calculate bucket's key number(index)
     def get(key)
-        @buckets[key]
+        
+        index = hash(key) % 16
+        # If the bucket is not empty
+        if @buckets[index].head.nil?
+            return nil
+        else
+            node =  @buckets[index].head
+            if node.key == key
+                return node.data
+            else
+                return nil
+            end
+        end
     end
 
     def key?(key)
         key.positive? and key < capacity ? true : false
+    end
+
+    def clear
+        @buckets.clear
     end
 
     
