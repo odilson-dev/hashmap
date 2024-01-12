@@ -55,7 +55,23 @@ class HashMap
 
     #key? takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
     def key?(key)
-        key.positive? and key < capacity ? true : false
+        index = hash(key) % 16
+        # If the bucket is not empty
+        if @buckets[index].head.nil?
+            return false
+        else
+            node =  @buckets[index].head
+            while true
+                if node.key == key
+                    return true
+                elsif node.next_node
+                    node = node.next_node
+                    next
+                else
+                    return false
+                end
+            end
+        end
     end
 
     # #clear removes all the elements from the hashmap
